@@ -12,7 +12,7 @@ const ACCELERATION_SCALAR: f32 = 1.0;
 const SPAWN_RANGE_X: Range<f32> = -25.0..25.0;
 const SPAWN_RANGE_Z: Range<f32> = 0.0..25.0;
 const SPAWN_TIME_SECONDS: f32 = 1.0;
-const ROTATE_SPEED: f32 = 5.0;
+const ROTATE_SPEED: f32 = 2.0;
 const RADIUS: f32 = 2.5;
 
 #[derive(Component, Debug)]
@@ -59,14 +59,21 @@ fn spawn_asteroid(
   let velocity = random_unit_vector() * VELOCITY_SCALAR;
   let acceleration = random_unit_vector() * ACCELERATION_SCALAR;
 
+  let asteroid_scale = rng.gen_range(1.0..3.0);
+  let asteroid_transform = Transform {
+    translation,
+    rotation: Quat::from_rotation_y(rng.gen_range(0.0..4.0)),
+    scale: Vec3::splat(asteroid_scale),
+  };
+
   commands.spawn((
     MovingObjectBundle {
       velocity: Velocity::new(velocity),
       acceleration: Acceleration::new(acceleration),
-      collider: Collider::new(RADIUS),
+      collider: Collider::new(RADIUS * asteroid_scale),
       model: SceneBundle {
         scene: scene_assets.asteroid.clone(),
-        transform: Transform::from_translation(translation).with_rotation(Quat::from_rotation_y(rng.gen_range(0.0..4.0))),
+        transform: asteroid_transform,
         ..default()
       },
     },

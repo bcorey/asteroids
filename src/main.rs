@@ -7,6 +7,7 @@ mod light;
 mod asset_loader;
 mod input;
 mod collision_detection;
+mod despawn;
 
 use bevy::prelude::*;
 use camera::CameraPlugin;
@@ -18,6 +19,7 @@ use light::LightingPlugin;
 use asset_loader::AssetLoaderPlugin;
 use input::InputPlugin;
 use collision_detection::CollisionDetectionPlugin;
+use despawn::DespawnPlugin;
 fn main() {
 
     // This app loops forever at 60 fps
@@ -38,6 +40,7 @@ fn main() {
             AsteroidPlugin,
             CameraPlugin,
             CollisionDetectionPlugin,
+            DespawnPlugin,
         ))
         .run();
 }
