@@ -6,6 +6,7 @@ mod asteroids;
 mod light;
 mod asset_loader;
 mod input;
+mod collision_detection;
 
 use bevy::prelude::*;
 use camera::CameraPlugin;
@@ -16,6 +17,7 @@ use asteroids::AsteroidPlugin;
 use light::LightingPlugin;
 use asset_loader::AssetLoaderPlugin;
 use input::InputPlugin;
+use collision_detection::CollisionDetectionPlugin;
 fn main() {
 
     // This app loops forever at 60 fps
@@ -34,7 +36,8 @@ fn main() {
             //DebugPlugin,
             SpaceshipPlugin,
             AsteroidPlugin,
-            CameraPlugin
+            CameraPlugin,
+            CollisionDetectionPlugin,
         ))
         .run();
 }
